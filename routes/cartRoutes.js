@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const asyncHandler = require('../utils/asyncHandler');
 const { getCart, addToCart, updateCart, removeFromCart } = require('../controllers/cartController');
+const { validateAddToCart, validateUpdateCart } = require('../middleware/validators');
 
-router.get('/', getCart);
-router.post('/', addToCart);
-router.put('/', updateCart);
-router.delete('/:productId', removeFromCart);
+router.get('/', asyncHandler(getCart));
+router.post('/', validateAddToCart, asyncHandler(addToCart));
+router.put('/', validateUpdateCart, asyncHandler(updateCart));
+router.delete('/:productId', asyncHandler(removeFromCart));
 
 module.exports = router;
