@@ -1,7 +1,7 @@
 const Cart = require('../models/cartModel');
 const Product = require('../models/productModel');
 
-// For simplicity, we have a single cart
+//  cart
 const getCart = async (req, res, next) => {
   try {
     let cart = await Cart.findOne().populate('items.product');
